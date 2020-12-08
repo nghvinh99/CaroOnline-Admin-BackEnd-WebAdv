@@ -6,6 +6,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('./components/auth/local-strategy');
+const cors = require('cors');
 
 const db = require('./components/database/connect');
 
@@ -15,6 +16,18 @@ const usersRouter = require('./components/users/users');
 const authRouter = require('./components/auth/authRouter');
 
 const app = express();
+app.use(cors({
+  credentials: true,
+  origin: process.env.ALLOW_ORIGIN
+}));
+
+const allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+}
+
+app.use(allowCrossDomain);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,7 +42,6 @@ app.use(session({
   secret: 'ScottishFold',
   resave: false,
   saveUninitialized: true,
-  cookie: {}
 }))
 app.use(passport.initialize());
 app.use(passport.session());
