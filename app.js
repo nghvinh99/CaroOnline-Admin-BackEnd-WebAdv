@@ -32,9 +32,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/auth', authRouter);
+const ensureAuthenticated = function (req, res, next) {
+  passport.authenticate('local');
+}
+app.use(ensureAuthenticated);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
