@@ -11,10 +11,10 @@ passport.use(new LocalStrategy(
         }
       });
       if (admin === null) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false);
       }
       if (!(await admin.validatePassword(password))) {
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false);
       }
       return done(null, admin);
     } catch (err) {

@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('./components/auth/local-strategy');
 
+const db = require('./components/database/connect');
+
+const dotenv = require('dotenv').config();
 const indexRouter = require('./components/misc/index');
 const usersRouter = require('./components/users/users');
 const authRouter = require('./components/auth/authRouter');
@@ -36,7 +39,7 @@ app.use('/auth', authRouter);
 const ensureAuthenticated = function (req, res, next) {
   passport.authenticate('local');
 }
-app.use(ensureAuthenticated);
+// app.use(ensureAuthenticated);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

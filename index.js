@@ -7,7 +7,6 @@
 const app = require('./app');
 const debug = require('debug')('admin-api:server');
 const http = require('http');
-const db = require('./components/database/connect');
 
 /**
  * Get port from environment and store in Express.
