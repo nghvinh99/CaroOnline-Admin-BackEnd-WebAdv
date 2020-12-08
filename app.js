@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const dotenv = require('dotenv').config();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -10,7 +11,6 @@ const cors = require('cors');
 
 const db = require('./components/database/connect');
 
-const dotenv = require('dotenv').config();
 const indexRouter = require('./components/misc/index');
 const usersRouter = require('./components/users/users');
 const authRouter = require('./components/auth/authRouter');
@@ -39,7 +39,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
-  secret: 'ScottishFold',
+  secret: process.env.APP_SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }))
