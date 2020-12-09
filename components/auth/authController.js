@@ -11,7 +11,7 @@ authController.logIn = function (req, res, next) {
   const expiredTime = process.env.JWT_EXPIRE_TIME * 60 * 1000;
   const cookieOpts = {
     maxAge: expiredTime,
-    sameSite: 'strict',
+    sameSite: 'none',
     secure: true
   }
   res.cookie('Authorization', token, { ...cookieOpts, httpOnly: true });
@@ -23,7 +23,7 @@ authController.logOut = function (req, res, next) {
   const expiredTime = 0;
   const cookieOpts = {
     maxAge: expiredTime,
-    sameSite: 'strict',
+    sameSite: 'none',
     secure: true
   }
   res.cookie('Authorization', '', { ...cookieOpts, httpOnly: true });
