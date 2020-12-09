@@ -12,7 +12,8 @@ authController.logIn = function (req, res, next) {
   const cookieOpts = {
     maxAge: expiredTime,
     sameSite: 'none',
-    secure: true
+    secure: true,
+    domain: process.env.ALLOW_ORIGIN
   }
   res.cookie('Authorization', token, { ...cookieOpts, httpOnly: true });
   res.cookie('Login', true, { ...cookieOpts, httpOnly: false });
