@@ -42,9 +42,14 @@ app.use(session({
   secret: process.env.APP_SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
+  cookie: {
+    path: "/",
+    secure: true,
+    httpOnly: true
+  }
 }))
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);

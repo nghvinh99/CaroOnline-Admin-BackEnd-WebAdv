@@ -13,7 +13,6 @@ async () => {
     await sequelize.authenticate();
     console.log('Database connected!');
   } catch (err) {
-    // console.error('Unable to connect to the database:', err);
     throw err;
   }
 };
