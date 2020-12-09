@@ -9,15 +9,23 @@ authController.logIn = function (req, res, next) {
   }
   const token = jwt.sign(payload, process.env.JWT_SECRET_OR_KEY, { expiresIn: process.env.JWT_EXPIRE_TIME + 'm' });
   const expiredTime = process.env.JWT_EXPIRE_TIME * 60 * 1000;
-  res.cookie('Authorization', token, { maxAge: expiredTime, httpOnly: true });
-  res.cookie('Login', true, { maxAge: expiredTime, httpOnly: false });
+  const cookieOpts = {
+    maxAge: expiredTime,
+    sameSite: 'strict'
+  }
+  res.cookie('Authorization', token, { ...cookieOpts, httpOnly: true });
+  res.cookie('Login', true, { ...cookieOpts, httpOnly: false });
   res.sendStatus(200);
 }
 
 authController.logOut = function (req, res, next) {
   const expiredTime = 0;
-  res.cookie('Authorization', '', { maxAge: expiredTime, httpOnly: true });
-  res.cookie('Login', false, { maxAge: expiredTime, httpOnly: false });
+  const cookieOpts = {
+    maxAge: expiredTime,
+    sameSite: 'strict'
+  }
+  res.cookie('Authorization', '', { ...cookieOpts, httpOnly: true });
+  res.cookie('Login', false, { ...cookieOpts, httpOnly: false });
   res.sendStatus(200);
 }
 
