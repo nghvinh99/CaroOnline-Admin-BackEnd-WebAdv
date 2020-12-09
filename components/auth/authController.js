@@ -13,11 +13,10 @@ authController.logIn = function (req, res, next) {
     maxAge: expiredTime,
     sameSite: 'none',
     secure: true,
-    domain: process.env.ALLOW_ORIGIN
   }
-  res.cookie('Authorization', token, { ...cookieOpts, httpOnly: true });
-  res.cookie('Login', true, { ...cookieOpts, httpOnly: false });
-  res.sendStatus(200);
+  // res.cookie('Authorization', token, { ...cookieOpts, httpOnly: true });
+  // res.cookie('Login', true, { ...cookieOpts, httpOnly: false });
+  res.send(token);
 }
 
 authController.logOut = function (req, res, next) {
@@ -27,8 +26,8 @@ authController.logOut = function (req, res, next) {
     sameSite: 'none',
     secure: true
   }
-  res.cookie('Authorization', '', { ...cookieOpts, httpOnly: true });
-  res.cookie('Login', false, { ...cookieOpts, httpOnly: false });
+  // res.cookie('Authorization', '', { ...cookieOpts, httpOnly: true });
+  // res.cookie('Login', false, { ...cookieOpts, httpOnly: false });
   res.sendStatus(200);
 }
 
