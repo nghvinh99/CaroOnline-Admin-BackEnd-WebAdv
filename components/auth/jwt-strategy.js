@@ -1,18 +1,11 @@
 const passport = require('./local-strategy');
 const jwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const Admin = require('../admins/adminModel');
 
 const opts = {}
 
-const cookieExtractor = function (req) {
-  let token = null;
-  if (req && req.cookies) {
-    token = req.cookies['Authorization'];
-  }
-  return token;
-}
-
-opts.jwtFromRequest = cookieExtractor;
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_SECRET_OR_KEY;
 
 passport.use(new jwtStrategy(opts, async function (jwt_payload, done) {
