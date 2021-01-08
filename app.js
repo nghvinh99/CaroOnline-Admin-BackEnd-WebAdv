@@ -53,10 +53,7 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);
-// const ensureAuthenticated = function (req, res, next) {
-//   passport.authenticate('jwt');
-// }
-// app.use(ensureAuthenticated);
+
 app.use(passport.authenticate('jwt'));
 app.all('*', function (req, res, next) {
   if (req.isAuthenticated()) {
