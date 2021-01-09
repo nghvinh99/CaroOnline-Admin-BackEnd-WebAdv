@@ -12,7 +12,7 @@ const cors = require('cors');
 const db = require('./components/database/connect');
 
 const indexRouter = require('./components/misc/index');
-const usersRouter = require('./components/users/users');
+const usersRouter = require('./components/users/usersRouter');
 const authRouter = require('./components/auth/authRouter');
 
 const app = express();
@@ -54,14 +54,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/auth', authRouter);
 
-app.use(passport.authenticate('jwt'));
-app.all('*', function (req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.status(401).send("Unauthorized");
-  }
-});
+// app.use(passport.authenticate('jwt'));
+// app.all('*', function (req, res, next) {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     res.status(401).send("Unauthorized");
+//   }
+// });
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
