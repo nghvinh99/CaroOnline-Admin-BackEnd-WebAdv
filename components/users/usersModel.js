@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database/connect');
+const { Op } = require('sequelize');
 
 const Users = sequelize.define('Users', {
   id: {
@@ -53,9 +54,19 @@ const Users = sequelize.define('Users', {
   await Users.sync();
 })();
 
-Users.getUsersList = async () => {
+Users.getUsersList = async (filter) => {
   try {
-    const users = await Users.findAll();
+    const users = await Users.findAll({
+      where: {
+        [Op.or]: [
+          { name: { [Op.like]: '%' + filter.search + '%' } },
+          { email: { [Op.like]: '%' + filter.search + '%' } },
+        ]
+      },
+      order: [
+        [filter.sortBy, filter.order]
+      ],
+    });
     return users;
   } catch (err) {
     throw err;
