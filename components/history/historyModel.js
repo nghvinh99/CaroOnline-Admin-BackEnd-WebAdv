@@ -53,17 +53,7 @@ const History = sequelize.define('History', {
 
 History.getHistoryList = async (filter) => {
   try {
-    const history = await History.findAll({
-      // where: {
-      //   [Op.or]: [
-      //     { name: { [Op.like]: '%' + filter.search + '%' } },
-      //     { email: { [Op.like]: '%' + filter.search + '%' } },
-      //   ]
-      // },
-      // order: [
-      //   [filter.sortBy, filter.order]
-      // ],
-    });
+    const history = await History.findAll();
     return history;
   } catch (err) {
     throw err;
