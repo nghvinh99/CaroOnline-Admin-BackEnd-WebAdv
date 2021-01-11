@@ -9,5 +9,14 @@ module.exports = usersController = {
     } catch (err) {
       throw err;
     }
+  },
+  blockUser: async (req, res, next) => {
+    const userId = req.query.userId;
+    try {
+      const response = await usersModel.flipStatus(userId);
+      res.send(response);
+    } catch (err) {
+      throw err;
+    }
   }
 }

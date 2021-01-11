@@ -73,4 +73,30 @@ Users.getUsersList = async (filter) => {
   }
 }
 
+Users.flipStatus = async (userId) => {
+  try {
+    const user = await Users.findOne({
+      where: {
+        id: userId
+      }
+    });
+    if (user) {
+      const flip = await Users.update({
+        status: 1 - user.status,
+      }, {
+        where: {
+          id: userId
+        },
+        silent: true
+      })
+      if (flip.length !== 0) {
+        return true;
+      }
+    }
+    return false;
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = Users;
