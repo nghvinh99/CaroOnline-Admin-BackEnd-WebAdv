@@ -11,7 +11,7 @@ module.exports = historyController = {
     }
   },
   getGameData: async (req, res, next) => {
-    const id = req.query.id;
+    const id = req.query.gameId;
     try {
       const history = await historyModel.getGameData(id);
       res.send(history);

@@ -20,19 +20,19 @@ const History = sequelize.define('History', {
   data: {
     type: DataTypes.STRING,
     get() {
-      return this.getDataValue('data').split(';')
+      return JSON.parse(this.getDataValue('data'));
     },
     set(val) {
-      this.setDataValue('data', val.join(';'));
+      this.setDataValue('data', JSON.stringify(val));
     },
   },
   chat: {
     type: DataTypes.STRING,
     get() {
-      return this.getDataValue('chat').split(';')
+      return JSON.parse(this.getDataValue('chat'));
     },
     set(val) {
-      this.setDataValue('chat', val.join(';'));
+      this.setDataValue('chat', JSON.stringify(val));
     },
   },
   type: {
@@ -72,8 +72,13 @@ History.getHistoryList = async (filter) => {
 
 History.getGameData = async (id) => {
   try {
-    const data = await
-      sequelize.query("SELECT data from histories WHERE id=" + id);
+    // const data = await
+    //   sequelize.query("SELECT data from histories WHERE id=" + id);
+    const data = await History.findOne({
+      where: {
+        id: id,
+      }
+    })
     return data;
   } catch (err) {
     throw err;
