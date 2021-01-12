@@ -8,5 +8,7 @@ router.get('/profile', passport.authenticate('jwt'), authController.profile);
 
 router.post('/change-password', passport.authenticate('jwt'), authController.changePassword);
 
+router.get('/verify-email', authController.sendVerifyMail);
+
 
 module.exports = router;
