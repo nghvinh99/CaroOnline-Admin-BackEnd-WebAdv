@@ -9,8 +9,8 @@ authController.sendVerifyMail = async function (req, res, next) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'nhvinh604@gmail.com',
-      pass: 'khongcomatkhau'
+      user: '',
+      pass: ''
     }
   });
 
