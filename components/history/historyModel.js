@@ -62,8 +62,6 @@ History.getHistoryList = async (filter) => {
 
 History.getGameData = async (id) => {
   try {
-    // const data = await
-    //   sequelize.query("SELECT data from histories WHERE id=" + id);
     const data = await History.findOne({
       where: {
         id: id,

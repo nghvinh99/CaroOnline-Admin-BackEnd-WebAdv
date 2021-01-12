@@ -5,6 +5,6 @@ const router = express.Router();
 /* GET users listing. */
 router.get('/', historyController.getHistory);
 
-router.get('/game/data', historyController.getGameData);
+router.get('/game', historyController.getGameData);
 
 module.exports = router;

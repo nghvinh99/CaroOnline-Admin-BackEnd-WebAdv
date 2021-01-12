@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database/connect');
 const { Op } = require('sequelize');
+const History = require('../history/historyModel');
 
 const Users = sequelize.define('Users', {
   id: {
@@ -68,6 +69,30 @@ Users.getUsersList = async (filter) => {
       ],
     });
     return users;
+  } catch (err) {
+    throw err;
+  }
+}
+
+Users.getOneUser = async (userId) => {
+  try {
+    const user = await Users.findOne({
+      where: {
+        id: userId,
+      }
+    });
+    return user;
+  } catch (err) {
+    throw err;
+  }
+}
+
+Users.getAllPlayerNames = async () => {
+  try {
+    const names = await Users.findAll({
+      attributes: ['id', 'name']
+    })
+    return names;
   } catch (err) {
     throw err;
   }
