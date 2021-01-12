@@ -59,4 +59,20 @@ Admin.getProfile = async (id) => {
   }
 }
 
+Admin.changePassword = async (info) => {
+  try {
+    const newPass = await bcrypt.hashSync(info.pass, 12);
+    const admin = await Admin.update({
+      password: newPass,
+    }, {
+      where: {
+        id: info.id
+      }
+    })
+    return admin;
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = Admin;

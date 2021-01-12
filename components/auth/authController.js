@@ -22,4 +22,15 @@ authController.profile = async function (req, res, next) {
   }
 }
 
+authController.changePassword = async function (req, res, next) {
+  const info = req.body;
+  console.log(req.body);
+  try {
+    const admin = await adminModel.changePassword(info);
+    res.send(admin);
+  } catch (err) {
+    throw err;
+  }
+}
+
 module.exports = authController;
