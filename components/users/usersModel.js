@@ -55,6 +55,15 @@ const Users = sequelize.define('Users', {
   await Users.sync();
 })();
 
+Users.count = async () => {
+  try {
+    const user = await Users.findAll();
+    return user.length;
+  } catch (err) {
+    throw err;
+  }
+}
+
 Users.getUsersList = async (filter) => {
   try {
     const users = await Users.findAll({

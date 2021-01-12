@@ -17,26 +17,43 @@ const Admin = sequelize.define('Admin', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  }
 }, {
   tableName: 'admin'
 });
 
 (async () => {
   await Admin.sync();
+  const admin = await Admin.findOne({
+    where: {
+      id: 1
+    }
+  });
+  if (!admin) {
+    Admin.create({
+      id: 1,
+      username: 'admin',
+      password: '$2y$12$gr1hk/PfyvvsclnZyUIGTOXQ0nSSLhxE8HpO262/zzuxij8XD1dcu',
+    })
+  }
 })();
 
 Admin.prototype.validatePassword = async function (plainPassword) {
   try {
     const res = await bcrypt.compare(plainPassword, this.password);
     return res;
+  } catch (err) {
+    throw err;
+  }
+}
+
+Admin.getProfile = async (id) => {
+  try {
+    const admin = await Admin.findOne({
+      where: {
+        id: id,
+      }
+    });
+    return admin;
   } catch (err) {
     throw err;
   }

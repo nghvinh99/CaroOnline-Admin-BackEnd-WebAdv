@@ -4,7 +4,7 @@ const authController = require('./authController');
 
 router.post('/login', passport.authenticate('local'), authController.logIn);
 
-router.get('/logout', passport.authenticate('jwt'), authController.logOut);
+router.get('/profile', passport.authenticate('jwt'), authController.profile);
 
 
 module.exports = router;

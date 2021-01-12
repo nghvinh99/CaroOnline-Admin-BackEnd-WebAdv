@@ -7,4 +7,6 @@ router.get('/', historyController.getHistory);
 
 router.get('/game', historyController.getGameData);
 
+router.get('/player', historyController.getPlayerGames);
+
 module.exports = router;

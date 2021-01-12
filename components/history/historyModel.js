@@ -51,6 +51,15 @@ const History = sequelize.define('History', {
   await History.sync();
 })();
 
+History.count = async () => {
+  try {
+    const history = await History.findAll();
+    return history.length;
+  } catch (err) {
+    throw err;
+  }
+}
+
 History.getHistoryList = async (filter) => {
   try {
     const history = await History.findAll();
@@ -67,6 +76,22 @@ History.getGameData = async (id) => {
         id: id,
       }
     })
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+History.getPlayerGames = async (id) => {
+  try {
+    const data = await History.findAll({
+      where: {
+        [Op.or]: [
+          { winner: id },
+          { loser: id }
+        ]
+      }
+    });
     return data;
   } catch (err) {
     throw err;

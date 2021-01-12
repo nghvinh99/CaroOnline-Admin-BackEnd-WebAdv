@@ -18,5 +18,14 @@ module.exports = historyController = {
     } catch (err) {
       throw err;
     }
+  },
+  getPlayerGames: async (req, res, next) => {
+    const userId = req.query.userId;
+    try {
+      const history = await historyModel.getPlayerGames(userId);
+      res.send(history);
+    } catch (err) {
+      throw err;
+    }
   }
 }
