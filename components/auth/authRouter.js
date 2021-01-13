@@ -10,5 +10,9 @@ router.post('/change-password', passport.authenticate('jwt'), authController.cha
 
 router.get('/verify-email', authController.sendVerifyMail);
 
+router.get('/test/:token', (req, res, next) => {
+  console.log(req.params);
+})
+
 
 module.exports = router;
