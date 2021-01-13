@@ -8,11 +8,11 @@ router.get('/profile', passport.authenticate('jwt'), authController.profile);
 
 router.post('/change-password', passport.authenticate('jwt'), authController.changePassword);
 
-router.get('/verify-email', authController.sendVerifyMail);
+router.post('/change-email', passport.authenticate('jwt'), authController.changeEmail);
 
-router.get('/test/:token', (req, res, next) => {
-  console.log(req.params);
-})
+router.post('/reset-password', authController.resetPasswordReq);
+
+router.post('/reset-password/:token', authController.resetPassword);
 
 
 module.exports = router;
